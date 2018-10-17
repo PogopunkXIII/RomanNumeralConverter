@@ -8,7 +8,8 @@ public class Program {
 
         if (normalizedRoman.isEmpty()) { return 0; }
 
-        //parse the input string into a stack of enum types
+        //parsing the strings into enums to make error checking easier later
+        //this also checks for invalid characters
         Stack<RomanDigit> romanStack = createStack(normalizedRoman);
 
         //prepare for parsing the input into an integer
@@ -20,17 +21,21 @@ public class Program {
         RomanDigit lastDigit = null;
         RomanDigit lastDecrementingDigit = null;
 
-        //loop while we're not done parsing all of the stack
+
         while(!romanStack.isEmpty()) {
-            //pop the top digit
             currentDigit = romanStack.pop();
 
+            //this is necessary for consecutive letter error checking(III is valid but VVV is not)
             maxNumberOfConsecutiveLetters = setMaxLetterCount(currentDigit);
 
             //if the last decrementing digit is the same as the current digit that means there's a formatting problem
+            //(IXII should be XI)
             if(lastDecrementingDigit == currentDigit) {
                 throw new InvalidFormatException("a decrementing digit was also used a normal digit");
-            } else if (lastDecrementingDigit != null && (currentDigit.ordinal() - lastDecrementingDigit.ordinal()) > 0) {
+            }
+            //or if you've just finished a decrement, and the current parsed digit is larger then what you were just using to decrement
+            //then you have an ordering issue (IXV should be XIV)
+            else if (lastDecrementingDigit != null && (currentDigit.ordinal() - lastDecrementingDigit.ordinal()) > 0) {
                 throw new InvalidFormatException("Improper ordering of roman digits");
             }
 
@@ -43,33 +48,32 @@ public class Program {
             if(modifier != 0) {
 
                 //and the decrementing digit is the same as the last digit parsed normally then it's a formatting error
+                //(IIIX should be XI)
                 if(lastDigit == currentDigit) {
                     throw new InvalidFormatException("a decrementing digit was also used as a normal digit");
                 }
                 //otherwise we just need to track the digit doing the decrementing for error checking purposes
+                //and grab the digit we're actually supposed to be using the value of
                 else {
                     lastDecrementingDigit = currentDigit;
                     currentDigit = romanStack.pop();
                 }
             }
-            //otherwise we just need to make sure we're keeping track of how many of the same digit we're seeing
             else if(lastDigit == currentDigit) {
                 letterCount++;
             }
-            //otherwise we're resetting the digit count
             else {
                 letterCount = 1;
             }
 
-            //check to make sure we're not just getting a ton of the same letter, there should only ever be 3 in a row
+            //IIII is not valid, should be IV
+            //VV is not valid, should be X
             if(letterCount >= maxNumberOfConsecutiveLetters) {
                 throw new InvalidFormatException("Too Many of the same letter in this roman numeral");
             }
 
-            //add the digit to the output value, taking the modifier into account
             output += currentDigit.getValue() - modifier;
 
-            //set the current digit to the last digit
             lastDigit = currentDigit;
             modifier = 0;
         }
@@ -127,7 +131,8 @@ public class Program {
         int digitOffset = current.ordinal() - next.ordinal();
         int output = 0;
 
-        //if the next item we're getting is larger than the current
+        //we're both making sure the digit doing the decrementing is valid decrementing digit in general
+        //and for the specific digit being decremented
         if(digitOffset >= -2 && digitOffset < 0)
         {
             switch(current) {
@@ -136,7 +141,7 @@ public class Program {
                 case C:
                     output = current.getValue();
                     break;
-                default:
+                default: //VX is not a valid roman numeral, should be XV
                     throw new InvalidFormatException(current.toString() + " Is not a valid decrementing digit.");
             }
         }
@@ -144,7 +149,7 @@ public class Program {
         else if((current.ordinal() - next.ordinal()) >= 0) {
             output = 0;
         }
-        //otherwise something is really weird, like the decrementing digit doesn't make sense
+        //otherwise something is really weird, like the decrementing digit doesn't make sense(IM is not a valid numeral)
         else {
             throw new InvalidFormatException(current.toString() + " is not a proper decrementing digit for " + next.toString());
         }

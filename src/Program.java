@@ -1,9 +1,6 @@
 import java.util.Stack;
 
 public class Program {
-
-    final int MAX_NUMBER_OF_CONSECTUIVE_LETTERS = 4;
-
     int r2i(String roman) {
 
 
@@ -18,6 +15,7 @@ public class Program {
         int output = 0;
         int letterCount = 1;
         int modifier = 0;
+        int maxNumberOfConsecutiveLetters = 1;
         RomanDigit currentDigit = null;
         RomanDigit lastDigit = null;
         RomanDigit lastDecrementingDigit = null;
@@ -26,6 +24,8 @@ public class Program {
         while(!romanStack.isEmpty()) {
             //pop the top digit
             currentDigit = romanStack.pop();
+
+            maxNumberOfConsecutiveLetters = setMaxLetterCount(currentDigit);
 
             //if the last decrementing digit is the same as the current digit that means there's a formatting problem
             if(lastDecrementingDigit == currentDigit) {
@@ -60,7 +60,7 @@ public class Program {
             }
 
             //check to make sure we're not just getting a ton of the same letter, there should only ever be 3 in a row
-            if(letterCount >= MAX_NUMBER_OF_CONSECTUIVE_LETTERS) {
+            if(letterCount >= maxNumberOfConsecutiveLetters) {
                 throw new InvalidFormatException("Too Many of the same letter in this roman numeral");
             }
 
@@ -145,6 +145,26 @@ public class Program {
         //otherwise something is really weird, like the decrementing digit doesn't make sense
         else {
             throw new InvalidFormatException(current.toString() + " is not a proper decrementing digit for " + next.toString());
+        }
+
+        return output;
+    }
+
+    private int setMaxLetterCount(RomanDigit digit) {
+        int output = 0;
+
+        switch (digit) {
+            case I:
+            case X:
+            case C:
+            case M:
+                output = 4;
+                break;
+            case V:
+            case L:
+            case D:
+                output = 2;
+                break;
         }
 
         return output;

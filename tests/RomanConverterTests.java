@@ -280,7 +280,7 @@ public class RomanConverterTests {
 
     @Test(expected = InvalidFormatException.class)
     public void invalidFormatQuadV() {
-        int output = converterProg.r2i("VVVV");
+        int output = converterProg.r2i("VV");
     }
 
     @Test(expected = InvalidFormatException.class)
@@ -290,7 +290,7 @@ public class RomanConverterTests {
 
     @Test(expected = InvalidFormatException.class)
     public void invalidFormatQuadL() {
-        int output = converterProg.r2i("LLLL");
+        int output = converterProg.r2i("LL");
     }
 
     @Test(expected = InvalidFormatException.class)
@@ -300,7 +300,7 @@ public class RomanConverterTests {
 
     @Test(expected = InvalidFormatException.class)
     public void invalidFormatQuadD() {
-        int output = converterProg.r2i("DDDD");
+        int output = converterProg.r2i("DD");
     }
 
     @Test(expected = InvalidFormatException.class)

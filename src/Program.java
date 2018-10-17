@@ -2,8 +2,6 @@ import java.util.Stack;
 
 public class Program {
 
-    public Program () {}
-
     int r2i(String roman) {
 
         //normalize the string input

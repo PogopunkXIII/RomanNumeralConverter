@@ -85,7 +85,6 @@ public class Program {
         RomanDigit digit;
 
         for(int i = lastIndex; i >= 0; i--){
-            digit = null;
 
             switch(in.charAt(i)){
                 case 'I':

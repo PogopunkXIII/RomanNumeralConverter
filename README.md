@@ -12,4 +12,5 @@ The Program.java class has a method called r2i(String roman) which converts a st
 7. Check to see if we're doing a decremental modification and if the last digit parsed is the same as the decrementing digit, if so that's a formatting error("XXXL" is an incorrect format, should be represented by "LX"). Otherwise check if the digit we're parsing is the same as the last digit and keep a running tally of the same digit parsed for error checking (you can't have more than three of the same digit in a sequence "XXXX" should be represented as "XL")
 8. If we're modifying the next digit, we need save the decrementing digit (for error checking), and take the next digit for proper parsing.
 9. Finally, take the digit, and the modifying value, and add it to a running total for the parsed roman numeral.
-10. Output the integer representation of the roman numeral.
+10. Repeat steps 4-9 for all roman numeral digits
+11. Output the integer representation of the roman numeral.

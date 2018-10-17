@@ -123,6 +123,7 @@ public class Program {
 
     private int decrementingValue(RomanDigit current, RomanDigit next) {
         int digitOffset = current.ordinal() - next.ordinal();
+        int output = 0;
 
         //if the next item we're getting is larger than the current
         if(digitOffset >= -2 && digitOffset < 0)
@@ -131,50 +132,21 @@ public class Program {
                 case I:
                 case X:
                 case C:
-                    return(current.getValue());
+                    output = current.getValue();
+                    break;
                 default:
                     throw new InvalidFormatException(current.toString() + " Is not a valid decrementing digit.");
             }
         }
         //otherwise if the next digit is the same, or larger than the next digit we're not decrementing the value
         else if((current.ordinal() - next.ordinal()) >= 0) {
-            return 0;
+            output = 0;
         }
         //otherwise something is really weird, like the decrementing digit doesn't make sense
         else {
             throw new InvalidFormatException(current.toString() + " is not a proper decrementing digit for " + next.toString());
         }
+
+        return output;
     }
-
-    /*
-    private int addDigitValue(RomanDigit roman, int mod) {
-        int value = 0;
-
-        switch(roman) {
-            case I:
-                value = 1;
-                break;
-            case V:
-                value = 5;
-                break;
-            case X:
-                value = 10;
-                break;
-            case L:
-                value = 50;
-                break;
-            case C:
-                value = 100;
-                break;
-            case D:
-                value = 500;
-                break;
-            case M:
-                value = 1000;
-                break;
-        }
-
-        return value + mod;
-    }
-    */
 }

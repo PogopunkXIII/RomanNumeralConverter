@@ -309,6 +309,11 @@ public class RomanConverterTests {
     }
 
     @Test(expected = InvalidFormatException.class)
+    public void invalidFormatSixMs() {
+        int output = converterProg.r2i("MMMMMM");
+    }
+
+    @Test(expected = InvalidFormatException.class)
     public void invalidFormatFollowingDecrementingIV() {
         int output = converterProg.r2i("IIIV");
     }

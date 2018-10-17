@@ -1,16 +1,15 @@
 public enum RomanDigit {
-    I("I"),
-    V("V"),
-    X("X"),
-    L("L"),
-    C("C"),
-    D("D"),
-    M("M");
+    I(1),
+    V(5),
+    X(10),
+    L(50),
+    C(100),
+    D(500),
+    M(1000);
 
-    private String value;
+    private int value;
 
-    private RomanDigit(String value) {this.value = value;}
+    private RomanDigit(int value) {this.value = value;}
 
-    @Override
-    public String toString() {return this.value;}
+    public int getValue() {return this.value;}
 }

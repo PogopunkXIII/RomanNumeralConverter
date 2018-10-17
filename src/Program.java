@@ -2,12 +2,13 @@ import java.util.Stack;
 
 public class Program {
 
+    final int MAX_NUMBER_OF_CONSECTUIVE_LETTERS = 4;
+
     int r2i(String roman) {
 
-        //normalize the string input
+
         String normalizedRoman = normalizeInput(roman);
 
-        //check to see if there's any meaningful input, return 0 if there's nothing there
         if (normalizedRoman.isEmpty()) { return 0; }
 
         //parse the input string into a stack of enum types
@@ -59,10 +60,12 @@ public class Program {
             }
 
             //check to make sure we're not just getting a ton of the same letter, there should only ever be 3 in a row
-            if(letterCount >= 4) {throw new InvalidFormatException("Too Many of the same letter in this roman numeral");}
+            if(letterCount >= MAX_NUMBER_OF_CONSECTUIVE_LETTERS) {
+                throw new InvalidFormatException("Too Many of the same letter in this roman numeral");
+            }
 
             //add the digit to the output value, taking the modifier into account
-            output += addDigitValue(currentDigit, modifier);
+            output += currentDigit.getValue() - modifier;
 
             //set the current digit to the last digit
             lastDigit = currentDigit;
@@ -126,11 +129,9 @@ public class Program {
         {
             switch(current) {
                 case I:
-                    return(-1);
                 case X:
-                    return(-10);
                 case C:
-                    return(-100);
+                    return(current.getValue());
                 default:
                     throw new InvalidFormatException(current.toString() + " Is not a valid decrementing digit.");
             }
@@ -145,6 +146,7 @@ public class Program {
         }
     }
 
+    /*
     private int addDigitValue(RomanDigit roman, int mod) {
         int value = 0;
 
@@ -174,4 +176,5 @@ public class Program {
 
         return value + mod;
     }
+    */
 }

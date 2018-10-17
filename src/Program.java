@@ -43,7 +43,7 @@ public class Program {
 
                 //and the decrementing digit is the same as the last digit parsed normally then it's a formatting error
                 if(lastDigit == currentDigit) {
-                    throw new InvalidFormatException("a decrementing digit was also used a normal digit");
+                    throw new InvalidFormatException("a decrementing digit was also used as a normal digit");
                 }
                 //otherwise we just need to track the digit doing the decrementing for error checking purposes
                 else {

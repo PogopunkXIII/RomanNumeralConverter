@@ -371,6 +371,20 @@ public class RomanConverterTests {
         int output = converterProg.r2i("CMCC");
     }
 
+    @Test
+    public void invalidFormatOutOfOrder() {
+        int output = converterProg.r2i("IXXX");
+
+        assertEquals(-1, output);
+    }
+
+    @Test
+    public void invalidFormatIncorrectDecrement() {
+        int output = converterProg.r2i("IXV");
+
+        assertEquals(-1, output);
+    }
+
     @Test(expected = InvalidFormatException.class)
     public void invalidFormatWrongDecrementorIL() {
         int output = converterProg.r2i("IL");

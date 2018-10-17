@@ -30,6 +30,8 @@ public class Program {
             //if the last decrementing digit is the same as the current digit that means there's a formatting problem
             if(lastDecrementingDigit == currentDigit) {
                 throw new InvalidFormatException("a decrementing digit was also used a normal digit");
+            } else if (lastDecrementingDigit != null && (currentDigit.ordinal() - lastDecrementingDigit.ordinal()) > 0) {
+                throw new InvalidFormatException("Improper ordering of roman digits");
             }
 
             //if there's more than 1 item left:

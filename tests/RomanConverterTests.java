@@ -279,7 +279,7 @@ public class RomanConverterTests {
     }
 
     @Test(expected = InvalidFormatException.class)
-    public void invalidFormatQuadV() {
+    public void invalidFormatDoubleV() {
         int output = converterProg.r2i("VV");
     }
 
@@ -289,7 +289,7 @@ public class RomanConverterTests {
     }
 
     @Test(expected = InvalidFormatException.class)
-    public void invalidFormatQuadL() {
+    public void invalidFormatDoubleL() {
         int output = converterProg.r2i("LL");
     }
 
@@ -299,7 +299,7 @@ public class RomanConverterTests {
     }
 
     @Test(expected = InvalidFormatException.class)
-    public void invalidFormatQuadD() {
+    public void invalidFormatDoubleD() {
         int output = converterProg.r2i("DD");
     }
 
@@ -371,19 +371,32 @@ public class RomanConverterTests {
         int output = converterProg.r2i("CMCC");
     }
 
-    @Test
-    public void invalidFormatOutOfOrder() {
-        int output = converterProg.r2i("IXXX");
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatOutOfOrderV() { int output = converterProg.r2i("IVVV"); }
 
-        assertEquals(-1, output);
-    }
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatOutOfOrderX() { int output = converterProg.r2i("IXXX"); }
 
-    @Test
-    public void invalidFormatIncorrectDecrement() {
-        int output = converterProg.r2i("IXV");
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatOutOfOrderL() { int output = converterProg.r2i("XLLL"); }
 
-        assertEquals(-1, output);
-    }
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatOutOfOrderC() { int output = converterProg.r2i("XCCC"); }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatOutOfOrderD() { int output = converterProg.r2i("XDDD"); }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatOutOfOrderM() { int output = converterProg.r2i("XMMM"); }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatIncorrectDecrementX() { int output = converterProg.r2i("IXV"); }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatIncorrectDecrementC() { int output = converterProg.r2i("XCL"); }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatIncorrectDecrementM() { int output = converterProg.r2i("CMD"); }
 
     @Test(expected = InvalidFormatException.class)
     public void invalidFormatWrongDecrementorIL() {

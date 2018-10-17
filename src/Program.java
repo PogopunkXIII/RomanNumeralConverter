@@ -68,6 +68,7 @@ public class Program {
 
             //set the current digit to the last digit
             lastDigit = currentDigit;
+            modifier = 0;
         }
 
         return output;

@@ -2,6 +2,8 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Vector;
+
 import static org.junit.Assert.assertEquals;
 
 public class RomanConverterTests {
@@ -153,6 +155,13 @@ public class RomanConverterTests {
     }
 
     @Test
+    public void test41() {
+        int output = converterProg.r2i("XLI");
+
+        assertEquals(41, output);
+    }
+
+    @Test
     public void test1234() {
         int output = converterProg.r2i("MCCXXXIV");
 
@@ -259,25 +268,200 @@ public class RomanConverterTests {
         int output = converterProg.r2i("A");
     }
 
-    @Test(expected = InvalidFormatException.class)
-    public void invalidFormatFollowingDecrement() {
-        int output = converterProg.r2i("XXXL");
+    @Test(expected = InvalidLetterException.class)
+    public void InvalidGibberish() {
+        int output = converterProg.r2i("oliu2y3ojhsadoif8723i4uhasjdhfASDFas'dujklrghwer@#");
     }
 
     @Test(expected = InvalidFormatException.class)
-    public void invalidFormatLeadingDecrement() {
-        int output = converterProg.r2i("XLXX");
+    public void invalidFormatQuadI() {
+        int output = converterProg.r2i("IIII");
     }
 
     @Test(expected = InvalidFormatException.class)
-    public void invalidFormatQuads() {
+    public void invalidFormatQuadV() {
+        int output = converterProg.r2i("VVVV");
+    }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatQuadX() {
         int output = converterProg.r2i("XXXX");
     }
 
     @Test(expected = InvalidFormatException.class)
-    public void invalidFormatWrongDecrementor() {
+    public void invalidFormatQuadL() {
+        int output = converterProg.r2i("LLLL");
+    }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatQuadC() {
+        int output = converterProg.r2i("CCCC");
+    }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatQuadD() {
+        int output = converterProg.r2i("DDDD");
+    }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatQuadM() {
+        int output = converterProg.r2i("MMMM");
+    }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatFollowingDecrementingIV() {
+        int output = converterProg.r2i("IIIV");
+    }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatLeadingDecrementingIV() {
+        int output = converterProg.r2i("IVII");
+    }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatFollowingDecrementingIX() { int output = converterProg.r2i("IIIX"); }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatLeadingDecrementingIX() {
+        int output = converterProg.r2i("IXII");
+    }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatFollowingDecrementingXL() {
+        int output = converterProg.r2i("XXXL");
+    }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatLeadingDecrementingXL() {
+        int output = converterProg.r2i("XLXX");
+    }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatFollowingDecrementingXD() {
+        int output = converterProg.r2i("XXXD");
+    }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatLeadingDecrementingXD() {
+        int output = converterProg.r2i("XDXX");
+    }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatFollowingDecrementingCD() {
+        int output = converterProg.r2i("CCCD");
+    }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatLeadingDecrementingCD() {
+        int output = converterProg.r2i("CDCC");
+    }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatFollowingDecrementingCM() {
+        int output = converterProg.r2i("CCCM");
+    }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatLeadingDecrementingCM() {
+        int output = converterProg.r2i("CMCC");
+    }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatWrongDecrementorIL() {
+        int output = converterProg.r2i("IL");
+    }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatWrongDecrementorIC() {
+        int output = converterProg.r2i("IC");
+    }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatWrongDecrementorID() {
+        int output = converterProg.r2i("ID");
+    }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatWrongDecrementorIM() {
+        int output = converterProg.r2i("IM");
+    }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatWrongDecrementorXD() {
+        int output = converterProg.r2i("XD");
+    }
+
+    @Test(expected = InvalidFormatException.class)
+    public void invalidFormatWrongDecrementorXM() {
         int output = converterProg.r2i("XM");
     }
 
+    @Test
+    public void masterFunctionalTest() {
+        Vector<String> allRomans1To3999 = generateAllRomans();
 
+        for(int i = 1; i <= 3999; i++) {
+            //System.out.println( "Testing roman: " + allRomans1To3999.get(i - 1) + " vs " + i);
+            assertEquals(i, converterProg.r2i(allRomans1To3999.get(i-1)));
+        }
+    }
+
+    private Vector<String> generateAllRomans() {
+        Vector<String> output = new Vector<>();
+
+        for(int i = 1; i <= 3999; i++) {
+            output.add(generateRomanNumeral(i));
+        }
+
+        return output;
+    }
+
+    private String generateRomanNumeral(int i) {
+        StringBuilder output = new StringBuilder();
+
+        while(i > 0) {
+            if((i - 1000) >= 0) {
+                output.append("M");
+                i = i - 1000;
+            } else if((i - 900) >= 0) {
+                output.append("CM");
+                i = i - 900;
+            } else if((i - 500) >= 0) {
+                output.append("D");
+                i = i - 500;
+            } else if((i - 400) >= 0) {
+                output.append("CD");
+                i = i - 400;
+            } else if((i - 100) >= 0) {
+                output.append("C");
+                i = i - 100;
+            } else if((i - 90) >= 0) {
+                output.append("XC");
+                i = i - 90;
+            } else if((i - 50) >= 0) {
+                output.append("L");
+                i = i - 50;
+            } else if((i - 40) >= 0) {
+                output.append("XL");
+                i = i - 40;
+            } else if((i - 10) >= 0) {
+                output.append("X");
+                i = i - 10;
+            } else if((i - 9) >= 0) {
+                output.append("IX");
+                i = i - 9;
+            } else if((i - 5) >= 0) {
+                output.append("V");
+                i = i - 5;
+            } else if((i - 4) >= 0) {
+                output.append("IV");
+                i = i - 4;
+            } else if((i - 1) >= 0) {
+                output.append("I");
+                i = i - 1;
+            }
+        }
+
+        return output.toString();
+    }
 }

@@ -133,8 +133,7 @@ public class Program {
 
         //we're both making sure the digit doing the decrementing is valid decrementing digit in general
         //and for the specific digit being decremented
-        if(digitOffset >= -2 && digitOffset < 0)
-        {
+        if(digitOffset >= -2 && digitOffset < 0) {
             switch(current) {
                 case I:
                 case X:

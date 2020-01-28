@@ -5,7 +5,7 @@ The `Program.java` class has a method called `r2i(String roman)` which converts 
 
 1. Normalize string input. Cut out whitespace, convert everything to upper.
 2. Check if the string has anything in it, if not return 0.
-3. Convert string into a stack of RomanDigits, an Enum value representing the roman digit values. the stack makes it simpler to work with the data, and the enum makes ordinal comparison easier for future work and error checking. This also serves as a change to parse the entire input string for non-viable characters.
+3. Convert string into a stack of RomanDigits, an Enum value representing the roman digit values. the stack makes it simpler to work with the data, and the enum makes ordinal comparison easier for future work and error checking. This also serves as a chance to parse the entire input string for non-viable characters.
 4. Begin a loop processing the digits from highest order to smallest order
 5. For every digit, check to make sure the last digit we used as a decrementing digit is not the same as the current to be processed for error checking ("XLXX" is an incorrect format, it should be represented as "LX")  
 6. Check if the next digit is larger, if it is figure out how much we're decrementing the digit by and return that value. Also serves as a change to change for formatting discrepancies (you can't have a "VX" sequence nor a "IC" sequence of digits)

@@ -1,7 +1,7 @@
 # RomanNumeralConverter
 converting Roman Numerals to Integers
 
-The Program.java class has a method called r2i(String roman) which converts a string representing a roman numeral to an integer. A rough overview of the algorithm as follows:
+The `Program.java` class has a method called `r2i(String roman)` which converts a string representing a roman numeral to an integer. A rough overview of the algorithm as follows:
 
 1. Normalize string input. Cut out whitespace, convert everything to upper.
 2. Check if the string has anything in it, if not return 0.
